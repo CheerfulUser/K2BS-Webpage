@@ -134,20 +134,22 @@ def Make_individual_event_page(Directory,Location,Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			filler = './default/anger.jpg'
-			if len(event_pdf) == 0:
-				event_pdf = [filler]
-			if len(event_TN) == 0:
-				event_TN = [filler]
-			if len(event_vid) == 0:
-				event_vid = [filler]
-			
+			#filler = './default/anger.jpg'
+			#if len(event_pdf) == 0:
+			#	event_pdf = [filler]
+			#if len(event_TN) == 0:
+			#	event_TN = [filler]
+			#if len(event_vid) == 0:
+			#	event_vid = [filler]
+
+			event_pdf = Web_dir + 'data/' + event_pdf[0].split('data/')[-1]
+			event_vid = Web_dir + 'data/' + event_vid[0].split('data/')[-1]
 				
 			infotable.startrow()
-			s = '<embed src="' + event_pdf[0] + '" width="500" height="400">'
+			s = '<embed src="' + event_pdf + '" width="500" height="400">'
 			#s = imagestring4web(event_pdf[0],width=None,height='400')
 			infotable.addcol(s) 
-			s = vidstring4web(event_vid[0],width='500',height='400')
+			s = vidstring4web(event_vid,width='500',height='400')
 			infotable.addcol(s)
 			infotable.endrow()
 
@@ -232,13 +234,13 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			filler = './default/anger.jpg'
-			if len(event_pdf) == 0:
-				event_pdf = [filler]
-			if len(event_TN) == 0:
-				event_TN = [filler]
-			if len(event_vid) == 0:
-				event_vid = [filler]
+			#filler = './default/anger.jpg'
+			#if len(event_pdf) == 0:
+			#	event_pdf = [filler]
+			#if len(event_TN) == 0:
+			#	event_TN = [filler]
+			#if len(event_vid) == 0:
+			#	event_vid = [filler]
 			
 
 			row = np.where(data[:,1] == int(event.split('_')[0].split('o')[1]))[0]
@@ -250,11 +252,15 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 			module = data[row,12]
 			if type(module) == np.ndarray:
 				module = module[0]
-				
+			
+			event_TN = Web_dir + 'data/' + event_TN[0].split('data/')[-1]
+			event_pdf = Web_dir + 'data/' + event_pdf[0].split('data/')[-1]
+			event_vid = Web_dir + 'data/' + event_vid[0].split('data/')[-1]
+
 			infotable.startrow()
-			s = addlink2string(imagestring4web(event_TN[0],width=None,height='150'),event_pdf[0])
+			s = addlink2string(imagestring4web(event_TN,width=None,height='150'),event_pdf)
 			infotable.addcol(s) 
-			s = addlink2string(vidstring4web(event_vid[0],width=None,height='150'),event_vid[0])
+			s = addlink2string(vidstring4web(event_vid,width=None,height='150'),Web_dir + event_vid)
 			infotable.addcol(s)
 			temp = filler
 			for eve in glob(Save_dir + Location[5]+'*'):
