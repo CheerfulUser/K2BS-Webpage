@@ -90,7 +90,7 @@ def Make_individual_event_page(Directory,Location,Save_dir):
 		for event in events:
 			EPIC = event.split('ktwo')[-1].split('_')[0]
 			Number = event.split('_')[-1]
-			cols2show = ['Campaign', 'EPIC', 'Event number', 'Host type', 'Start', 'Duration', 'Counts', 'Size','RA','DEC','Host', 'Channel', 'Module', 'Output', 'Rank bright'
+			cols2show = ['Campaign', 'EPIC', 'Event number', 'Host type', 'Start', 'Duration', 'Counts', 'Size','RA','DEC','Host', 'Channel', 'Module', 'Output', 'Rank bright',
 						  'Rank duration', 'Rank mask', 'Rank host', 'Rank total', 'Zoofig']
 
 			data = pd.read_csv(Directory + '/Events.csv')
@@ -527,7 +527,7 @@ def Make_homepage(Location,Save_dir):
 
 
 
-def Make_all(data_directory = '/home/ryanr/public_html/data/',
+def Make_all(data_directory = '//export/maipenrai2/skymap/ryanr/kepler/k2bs/',
 			 location = ['length/','brightness/','category/','sub_category/','events/','event/'],
 			 Save_dir = '/home/ryanr/public_html/k2bs/'):
 
