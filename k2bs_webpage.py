@@ -268,7 +268,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 					temp = eve
 			
 			infotable.addcol(event.split('ktwo')[1].split('_')[0])
-			infotable.addcol(addlink2string(event.split('_')[1],temp))
+			infotable.addcol(addlink2string(event.split('_')[1], Web_dir + 'event/' + temp.split('event/')[-1]))
 			infotable.addcol(str(channel))
 			infotable.addcol(str(module))
 
