@@ -134,13 +134,13 @@ def Make_individual_event_page(Directory,Location,Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			#filler = './default/anger.jpg'
-			#if len(event_pdf) == 0:
-			#	event_pdf = [filler]
-			#if len(event_TN) == 0:
-			#	event_TN = [filler]
-			#if len(event_vid) == 0:
-			#	event_vid = [filler]
+			filler = './data/Image_missing'
+			if len(event_pdf) == 0:
+				event_pdf = [filler]
+			if len(event_TN) == 0:
+				event_TN = [filler]
+			if len(event_vid) == 0:
+				event_vid = [filler]
 
 			event_pdf = Web_dir + 'data/' + event_pdf[0].split('data/')[-1]
 			event_vid = Web_dir + 'data/' + event_vid[0].split('data/')[-1]
@@ -234,13 +234,13 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			#filler = './default/anger.jpg'
-			#if len(event_pdf) == 0:
-			#	event_pdf = [filler]
-			#if len(event_TN) == 0:
-			#	event_TN = [filler]
-			#if len(event_vid) == 0:
-			#	event_vid = [filler]
+			filler = './data/Image_missing'
+			if len(event_pdf) == 0:
+				event_pdf = [filler]
+			if len(event_TN) == 0:
+				event_TN = [filler]
+			if len(event_vid) == 0:
+				event_vid = [filler]
 			
 
 			row = np.where(data[:,1] == int(event.split('_')[0].split('o')[1]))[0]
