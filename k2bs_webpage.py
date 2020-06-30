@@ -288,7 +288,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 			savename = c_split.split('/')[2] + '_' +c_split.split('/')[3] + '_' +c_split.split('/')[4] + '_' +c_split.split('/')[5] +'.html'
 		else:
 			savename = c_split.split('/')[2] + '_' +c_split.split('/')[3] + '_' +c_split.split('/')[4] +'.html'
-		webpage = Fill_subsection_links(webpage,Location,savename,Save_dir)
+		webpage = Fill_subsection_links(webpage,Location,savename,Save_dir,Web_dir)
 		
 		savename = 'c'+path.split('c')[-1].split('/')[0]+ '-' + savename
 		
