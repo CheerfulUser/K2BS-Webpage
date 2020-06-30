@@ -541,5 +541,10 @@ def Make_all(data_directory = '//export/maipenrai2/skymap/ryanr/kepler/k2bs/',
 	Make_brightness_pages(location,Save_dir)
 	Make_length_pages(location,Save_dir)
 	Make_homepage(location,Save_dir)
-	print('Donezo!')
+	print('Made internet!')
+
+
+
+if __name__ == '__main__':
+	Make_all()
 
