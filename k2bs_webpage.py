@@ -6,36 +6,36 @@ import pandas as pd
 import numpy as np
 
 
-def Fill_subsection_links(Webpage, Location, Savename, Save_dir):
+def Fill_subsection_links(Webpage, Location, Savename, Save_dir,Web_dir):
 	types = Savename.split('_')
 	
 	if len(types) > 1:
 		Webpage.substituteplaceholder('PLACEHOLDER_LENGTH',
-								addlink2string(types[0], Save_dir+Location[0] + types[0] + '.html'))
+								addlink2string(types[0], Web_dir + Location[0] + types[0] + '.html'))
 		if len(types) > 3:
 			Webpage.substituteplaceholder('PLACEHOLDER_BRIGHTNESS',
-									addlink2string(types[1], Save_dir+Location[1] + types[0] + '_' + types[1] + '.html'))
+									addlink2string(types[1], Web_dir + Location[1] + types[0] + '_' + types[1] + '.html'))
 			Webpage.substituteplaceholder('PLACEHOLDER_TYPE_ONE',
-									addlink2string(types[2], Save_dir+Location[2] + types[0] + '_' + types[1] + '_' + types[2] + '.html'))
+									addlink2string(types[2], Web_dir + Location[2] + types[0] + '_' + types[1] + '_' + types[2] + '.html'))
 			Webpage.substituteplaceholder('PLACEHOLDER_TYPE_TWO',
-									addlink2string(types[3].split('.')[0], Save_dir+Location[3] + Savename))
+									addlink2string(types[3].split('.')[0], Web_dir + Location[3] + Savename))
 		else:
 			if len(types) == 3:
 				Webpage.substituteplaceholder('PLACEHOLDER_BRIGHTNESS',
-									addlink2string(types[1], Save_dir+Location[1] + types[0] + '_' + types[1] + '.html'))
+									addlink2string(types[1], Web_dir + Location[1] + types[0] + '_' + types[1] + '.html'))
 				Webpage.substituteplaceholder('PLACEHOLDER_TYPE_ONE',
-										addlink2string(types[2].split('.')[0], Save_dir+Location[2] + Savename))
+										addlink2string(types[2].split('.')[0], Web_dir + Location[2] + Savename))
 
 				Webpage.substituteplaceholder('PLACEHOLDER_TYPE_TWO','')
 			else:
 				Webpage.substituteplaceholder('PLACEHOLDER_BRIGHTNESS',
-									addlink2string(types[1].split('.')[0], Save_dir+Location[1] + types[0] + '_' + types[1]))
+									addlink2string(types[1].split('.')[0], Web_dir + Location[1] + types[0] + '_' + types[1]))
 				Webpage.substituteplaceholder('PLACEHOLDER_TYPE_ONE','')
 				Webpage.substituteplaceholder('PLACEHOLDER_TYPE_TWO','')
 	else:
 		if len(types) == 1:
 			Webpage.substituteplaceholder('PLACEHOLDER_LENGTH',
-									addlink2string(types[0].split('.')[0], Save_dir+Location[0] + types[0]))
+									addlink2string(types[0].split('.')[0], Web_dir + Location[0] + types[0]))
 			Webpage.substituteplaceholder('PLACEHOLDER_BRIGHTNESS','')
 			Webpage.substituteplaceholder('PLACEHOLDER_TYPE_ONE','')
 			Webpage.substituteplaceholder('PLACEHOLDER_TYPE_TWO','')
@@ -60,7 +60,7 @@ def Reduce_string(string):
 			temp2 += temp[i] + '.html'
 	return temp2
 
-def Make_individual_event_page(Directory,Location,Save_dir):
+def Make_individual_event_page(Directory,Location,Save_dir,Web_dir):
 	direc = glob(Directory + 'Figures/**/**/**/')
 	direc = [ x for x in direc if "Prob" not in x ]
 	direc = [ x for x in direc if "Near" not in x ]
@@ -105,7 +105,7 @@ def Make_individual_event_page(Directory,Location,Save_dir):
 			webpage.substituteplaceholder('PLACEHOLDER_CAMPAIGN','c'+path.split('c')[1].split('/')[0])
 
 			webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-										addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+										addlink2string('K2:BS Homepage',Web_dir + 'K2BSHomepage.html'))
 
 			
 			infotable = htmltable(20,border=1,cellspacing=0,cellpadding=2,width='200px')
@@ -161,10 +161,10 @@ def Make_individual_event_page(Directory,Location,Save_dir):
 					savename += i + '_'
 				else:
 					savename += i + '.html'
-			webpage = Fill_subsection_links(webpage, Location, savename,Save_dir)
+			webpage = Fill_subsection_links(webpage, Location, savename,Save_dir,Web_dir)
 			type3 = Location[4] + data[row,0] + '-' + savename
 			webpage.substituteplaceholder('PLACEHOLDER_TYPE_CAMPAIGN',
-										addlink2string(data[row,0][0][0],Save_dir+type3[0][0]))
+										addlink2string(data[row,0][0][0],Web_dir + type3[0][0]))
 			
 			today = datetime.now()
 			update_date = str(today.date())
@@ -172,7 +172,7 @@ def Make_individual_event_page(Directory,Location,Save_dir):
 			webpage.savepage(Save_dir + Location[5] + event.split('ktwo')[-1] + '.html')
 
 
-def Make_candidate_webpage(Directory, Location, Save_dir):
+def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 	"""
 	Gather all like events in a campaign and make a webpage.
 	"""
@@ -311,7 +311,7 @@ def Make_category_pages(Location,Save_dir):
             webpage.substituteplaceholder('PLACEHOLDER_TYPE_PLACEHOLDER', name.split('.')[0].split('_')[-1])
 
             webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-                                        addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+                                        addlink2string('K2:BS Homepage',Web_dir + 'K2BSHomepage.html'))
 
             infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
 
@@ -321,7 +321,7 @@ def Make_category_pages(Location,Save_dir):
             for link in files:
                 if name in link:
                     infotable.startrow()
-                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],link)) 
+                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link)) 
                     infotable.endrow()
 
             webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -331,7 +331,7 @@ def Make_category_pages(Location,Save_dir):
                     temp = i
             body = body_text[temp] + name.split('_')[-1].split('.')[0]
             webpage.substituteplaceholder('PLACEHOLDER_BODY',body)
-            webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir)
+            webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir,Web_dir)
             today = datetime.now()
             update_date = str(today.date())
             webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
@@ -360,7 +360,7 @@ def Make_category_pages(Location,Save_dir):
         webpage.substituteplaceholder('PLACEHOLDER_TITLE_PLACEHOLDER','K2:BS')
         webpage.substituteplaceholder('PLACEHOLDER_TYPE_PLACEHOLDER', name.split('_')[-1].split('.')[0])
         webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-                                        addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+                                        addlink2string('K2:BS Homepage',Web_dir + 'K2BSHomepage.html'))
         infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
 
         infotable.startrow()
@@ -370,7 +370,7 @@ def Make_category_pages(Location,Save_dir):
         for link in files:
             if name.split('.')[0] in link:
                 infotable.startrow()
-                infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],link))
+                infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
                 infotable.endrow()
 
         webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -379,7 +379,7 @@ def Make_category_pages(Location,Save_dir):
             if name.split('_')[2].split('.')[0] == body_cat[i]:
                 temp = i
         webpage.substituteplaceholder('PLACEHOLDER_BODY',body_text[temp])
-        webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir)
+        webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir,Web_dir)
         today = datetime.now()
         update_date = str(today.date())
         webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
@@ -405,7 +405,7 @@ def Make_category_pages(Location,Save_dir):
             webpage.substituteplaceholder('PLACEHOLDER_TITLE_PLACEHOLDER','K2:BS')
             webpage.substituteplaceholder('PLACEHOLDER_TYPE_PLACEHOLDER', name.split('_')[-1].split('.')[0])
             webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-                                            addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+                                            addlink2string('K2:BS Homepage',Web_dir + 'K2BSHomepage.html'))
             infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
 
             infotable.startrow()
@@ -414,20 +414,20 @@ def Make_category_pages(Location,Save_dir):
             for link in files:
                 if name in link:
                     infotable.startrow()
-                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],link)) 
+                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link)) 
                     infotable.endrow()
 
             webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
 
             webpage.substituteplaceholder('PLACEHOLDER_BODY',body_text + name.split('_')[-1].split('.')[0])
-            webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir)
+            webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir,Web_dir)
             today = datetime.now()
             update_date = str(today.date())
             webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
             #print(name)
             webpage.savepage(Save_dir + Location[2] + name)
 			
-def Make_brightness_pages(Location,Save_dir):
+def Make_brightness_pages(Location,Save_dir,Web_dir):
 	files = glob(Save_dir + Location[2] + '*.html')
 	group = []
 	for file in files:
@@ -442,7 +442,7 @@ def Make_brightness_pages(Location,Save_dir):
 		webpage.substituteplaceholder('PLACEHOLDER_TITLE_PLACEHOLDER','K2:BS')
 		webpage.substituteplaceholder('PLACEHOLDER_TYPE_PLACEHOLDER', name.split('_')[-1].split('.')[0])
 		webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-										addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+										addlink2string('K2:BS Homepage',Web_dir+'K2BSHomepage.html'))
 		infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
 
 		infotable.startrow()
@@ -452,20 +452,20 @@ def Make_brightness_pages(Location,Save_dir):
 		for link in files:
 			if name.split('.')[0] in link:
 				infotable.startrow()
-				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],link))
+				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
 				infotable.endrow()
 
 		webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
 		temp = 0
 		body_text = ' events.'
 		webpage.substituteplaceholder('PLACEHOLDER_BODY',name.split('_')[-1].split('.')[0] + body_text)
-		webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir)
+		webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir,Web_dir)
 		today = datetime.now()
 		update_date = str(today.date())
 		webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
 		webpage.savepage(Save_dir + Location[1] + name)
 		
-def Make_length_pages(Location,Save_dir):
+def Make_length_pages(Location,Save_dir,Web_dir):
 	files = glob(Save_dir + Location[1] + '*.html')
 	print(files)
 	group = []
@@ -480,7 +480,7 @@ def Make_length_pages(Location,Save_dir):
 		webpage.substituteplaceholder('PLACEHOLDER_TITLE_PLACEHOLDER','K2:BS')
 		webpage.substituteplaceholder('PLACEHOLDER_TYPE_PLACEHOLDER', name.split('_')[-1].split('.')[0])
 		webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-										addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+										addlink2string('K2:BS Homepage',Web_dir+'K2BSHomepage.html'))
 		infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
 
 		infotable.startrow()
@@ -490,20 +490,20 @@ def Make_length_pages(Location,Save_dir):
 		for link in files:
 			if name.split('.')[0] in link:
 				infotable.startrow()
-				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],link))
+				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
 				infotable.endrow()
 
 		webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
 		temp = 0
 		body_text = ' events.'
 		webpage.substituteplaceholder('PLACEHOLDER_BODY',name.split('_')[-1].split('.')[0] + body_text)
-		webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir)
+		webpage = Fill_subsection_links(webpage,Location,Reduce_string(name),Save_dir,Web_dir)
 		today = datetime.now()
 		update_date = str(today.date())
 		webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
 		webpage.savepage(Save_dir + Location[0] + name)
 		
-def Make_homepage(Location,Save_dir):
+def Make_homepage(Location,Save_dir,Web_dir):
 	files = glob(Save_dir + Location[0] + '*.html')
 	defaultwebpagename = './default/defaultpage_K2BS_homepage.html'
 	webpage = webpageclass()
@@ -517,7 +517,7 @@ def Make_homepage(Location,Save_dir):
 
 	for link in files:
 		infotable.startrow()
-		infotable.addcol(addlink2string(link.split('/')[-1].split('.')[0],link))
+		infotable.addcol(addlink2string(link.split('/')[-1].split('.')[0],Web_dir + link))
 		infotable.endrow()
 	webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))		
 	today = datetime.now()
@@ -527,20 +527,21 @@ def Make_homepage(Location,Save_dir):
 
 
 
-def Make_all(data_directory = '//export/maipenrai2/skymap/ryanr/kepler/k2bs/',
+def Make_all(data_directory = '/home/ryanr/public_html/k2bs/data/',   #'/export/maipenrai2/skymap/ryanr/kepler/k2bs/',
 			 location = ['length/','brightness/','category/','sub_category/','events/','event/'],
-			 Save_dir = '/home/ryanr/public_html/k2bs/'):
+			 Save_dir = '/home/ryanr/public_html/k2bs/',
+			 Web_dir = 'http://www.mso.anu.edu.au/~ryanr/k2bs/'):
 
 	camps = glob(data_directory + 'c*/')
 	for camp in camps:
 		print(camp)
-		Make_individual_event_page(camp,location,Save_dir)
-		Make_candidate_webpage(camp,location,Save_dir)
+		Make_individual_event_page(camp,location,Save_dir,Web_dir)
+		Make_candidate_webpage(camp,location,Save_dir,Web_dir)
 		print("Done " + camp.split('/')[-1])
-	Make_category_pages(location,Save_dir)
-	Make_brightness_pages(location,Save_dir)
-	Make_length_pages(location,Save_dir)
-	Make_homepage(location,Save_dir)
+	Make_category_pages(location,Save_dir,Web_dir)
+	Make_brightness_pages(location,Save_dir,Web_dir)
+	Make_length_pages(location,Save_dir,Web_dir)
+	Make_homepage(location,Save_dir,Web_dir)
 	print('Made internet!')
 
 
