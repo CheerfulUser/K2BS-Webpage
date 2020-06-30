@@ -134,14 +134,14 @@ def Make_individual_event_page(Directory,Location,Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			filler = './data/Image_missing'
+			filler = Directory + 'anger.jpg'
 			if len(event_pdf) == 0:
 				event_pdf = [filler]
 			if len(event_TN) == 0:
 				event_TN = [filler]
 			if len(event_vid) == 0:
 				event_vid = [filler]
-
+			
 			event_pdf = Web_dir + 'data/' + event_pdf[0].split('data/')[-1]
 			event_vid = Web_dir + 'data/' + event_vid[0].split('data/')[-1]
 				
@@ -234,7 +234,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 			event_TN = glob(path+'*'+event+'*.png')
 			event_vid = glob(path+'*'+event+'*.mp4')
 
-			filler = './data/Image_missing'
+			filler = Directory + 'anger.jpg'
 			if len(event_pdf) == 0:
 				event_pdf = [filler]
 			if len(event_TN) == 0:
@@ -545,8 +545,11 @@ def Make_all(data_directory = '/home/ryanr/public_html/k2bs/data/',   #'/export/
 		Make_candidate_webpage(camp,location,Save_dir,Web_dir)
 		print("Done " + camp.split('/')[-1])
 	Make_category_pages(location,Save_dir,Web_dir)
+	print('Done Categories')
 	Make_brightness_pages(location,Save_dir,Web_dir)
+	print('Done Brightness')
 	Make_length_pages(location,Save_dir,Web_dir)
+	print('Done Length')
 	Make_homepage(location,Save_dir,Web_dir)
 	print('Made internet!')
 
