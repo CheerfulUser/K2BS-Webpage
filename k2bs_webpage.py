@@ -204,7 +204,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 		webpage.substituteplaceholder('PLACEHOLDER_CAMPAIGN','c'+path.split('c')[-1].split('/')[0])
 									
 		webpage.substituteplaceholder('PLACEHOLDER_BACKTOMAINLINK_PLACEHOLDER',
-									addlink2string('K2:BS Homepage',Save_dir+'K2BSHomepage.html'))
+									addlink2string('K2:BS Homepage',Web_dir+'K2BSHomepage.html'))
 
 
 		infotable = htmltable(10,border=1,cellspacing=0,cellpadding=2,width='200px')
