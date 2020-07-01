@@ -328,7 +328,7 @@ def Make_category_pages(Location,Save_dir,Web_dir):
             for link in files:
                 if name in link:
                     infotable.startrow()
-                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link)) 
+                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link.split(Save_dir)[-1])) 
                     infotable.endrow()
 
             webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -377,7 +377,7 @@ def Make_category_pages(Location,Save_dir,Web_dir):
         for link in files:
             if name.split('.')[0] in link:
                 infotable.startrow()
-                infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
+                infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link.split(Save_dir)[-1]))
                 infotable.endrow()
 
         webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -421,7 +421,7 @@ def Make_category_pages(Location,Save_dir,Web_dir):
             for link in files:
                 if name in link:
                     infotable.startrow()
-                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link)) 
+                    infotable.addcol(addlink2string(link.split('-')[0].split('/')[-1],Web_dir + link.split(Save_dir)[-1])) 
                     infotable.endrow()
 
             webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -459,7 +459,7 @@ def Make_brightness_pages(Location,Save_dir,Web_dir):
 		for link in files:
 			if name.split('.')[0] in link:
 				infotable.startrow()
-				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
+				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link.split(Save_dir)[-1]))
 				infotable.endrow()
 
 		webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -497,7 +497,7 @@ def Make_length_pages(Location,Save_dir,Web_dir):
 		for link in files:
 			if name.split('.')[0] in link:
 				infotable.startrow()
-				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link))
+				infotable.addcol(addlink2string(link.split('_')[-1].split('.')[0],Web_dir + link.split(Save_dir)[-1]))
 				infotable.endrow()
 
 		webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))
@@ -524,7 +524,7 @@ def Make_homepage(Location,Save_dir,Web_dir):
 
 	for link in files:
 		infotable.startrow()
-		infotable.addcol(addlink2string(link.split('/')[-1].split('.')[0],Web_dir + link))
+		infotable.addcol(addlink2string(link.split('/')[-1].split('.')[0],Web_dir + link.split(Save_dir)[-1]))
 		infotable.endrow()
 	webpage.substituteplaceholder('PLACEHOLDER_IMAGETABLE_PLACEHOLDER',infotable.gettable(sortable=True))		
 	today = datetime.now()
