@@ -268,6 +268,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 					temp = eve
 			
 			infotable.addcol(event.split('ktwo')[1].split('_')[0])
+			print(Web_dir + 'event/' + temp.split('event/')[-1])
 			infotable.addcol(addlink2string(event.split('_')[1], Web_dir + 'event/' + temp.split('event/')[-1]))
 			infotable.addcol(str(channel))
 			infotable.addcol(str(module))
@@ -295,7 +296,7 @@ def Make_candidate_webpage(Directory, Location, Save_dir,Web_dir):
 		webpage.substituteplaceholder('PLACEHOLDER_LASTUPDATE_PLACEHOLDER',update_date)
 		webpage.savepage(Save_dir + Location[4] + savename)
 		
-def Make_category_pages(Location,Save_dir):
+def Make_category_pages(Location,Save_dir,Web_dir):
     body_text = ["Events are 'probably' associated with ",
                  "Events are 'near' ",
                  "Events are 'in' "]
